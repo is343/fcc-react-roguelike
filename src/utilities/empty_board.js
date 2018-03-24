@@ -45,8 +45,8 @@ function findWall(board, rows, cols, tries=100) {
   while(tries >0 || tries !== true){
     let randomRow = _.random(0, rows);
     let randomCol = _.random(0, cols);
-    let wallRow;
-    let wallCol;
+    let wallRow = 0;
+    let wallCol = 0;
     if (board[randomRow][randomCol] === false){
       if (board[randomRow+1][randomCol] === true) {
         wallRow = randomRow+1;
