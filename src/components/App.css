@@ -6,12 +6,32 @@
   margin: 0 0 -1px -1px;
 }
 
-.off {
-  background-color: lightgray;
+.wall {
+  background-color: rgb(48, 48, 48);
 }
-
-.on {
+.ground {
+  background-color: lightslategray;
+}
+.enemy {
+  background-color: red;
+}
+.weapon {
+  background-color: orange;
+}
+.health {
   background-color: green;
+}
+.stair-up {
+  background-color: rgb(0, 196, 245);
+}
+.stair-down {
+  background-color: rgb(0, 8, 121);
+}
+.boss {
+  background-color: rgb(97, 0, 0);
+}
+.player {
+  background-color: rgb(128, 0, 117);
 }
 
 .box:hover {

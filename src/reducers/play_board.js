@@ -19,9 +19,9 @@ const defaultState = {
 
 const playBoardReducer = (state=defaultState, action) => {
   switch(action.type) {
-    case something:{
+    case something:
       return state;
-    }
+    
   }
   return state;
 }

@@ -15,12 +15,49 @@ class PlayField extends Component {
     for (var row_index = 0; row_index < this.props.rows; row_index++) {
       for (var col_index = 0; col_index < this.props.cols; col_index++) {
         let boxId = `${row_index}-${col_index}`;
-        console.log("row", row_index);
-        console.log("col", col_index);
-        // test the bool of each box and put the corresponding class
-        let boxClass = this.props.playField[row_index][col_index]
-          ? "box on"
-          : "box off"; // spaces between classes for multiples
+        // switch to test each box and put the corresponding class
+        // created an immediately envoked function, and envoked with the box
+        let boxClass = ((test) => {switch(test) {
+          // spaces between the classes for multiples
+          // needs box class and whatever else class
+          case 0:  // wall
+            return 'box wall';
+            break;
+          
+          case 1:  // ground
+            return 'box ground';
+            break;
+          
+          case 2:  // enemy
+            return 'box enemy';
+            break;
+          
+          case 3:  // weapon
+            return 'box weapon';
+            break;
+          
+          case 4:  // health
+            return 'box health';
+            break;
+          
+          case 5:  // stairs up
+            return 'box stair-up';
+            break;
+          
+          case 6:  // stairs down
+            return 'box stair-down';
+            break;
+          
+          case 7:  // boss
+            return 'box boss';
+            break;
+          
+          case 8:  // player
+            return 'box player';
+          
+        }
+        })(this.props.playField[row_index][col_index]);
+
         rowsArr.push(
           <Box
             boxClass={boxClass}

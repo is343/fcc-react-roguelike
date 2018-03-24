@@ -6,23 +6,16 @@ export default function emptyBoard(rows, cols) {
   // ints -> array
   let blankBoard = Array(rows)
     .fill()
-    .map(() => Array(cols).fill(true));
+    .map(() => Array(cols).fill(0));
   ///////////////
-  blankBoard = firstRoom(blankBoard, rows, cols);
-  let wallCoords = findWall(blankBoard, rows, cols, true);
+  let roomedBoard = firstRoom(blankBoard, rows, cols);
+  let wallCoords = findWall(roomedBoard, rows, cols, true);
   let newBlankBoard = markWall(blankBoard, wallCoords);
 
   ///////////////
-  return newBlankBoard;
+  return roomedBoard;
 };
 
-var roomLocations= [];
-
-function updateLocation(rowLocs, colLocs){
-  let newRoomLocations = roomLocations.slice(0);
-  newRoomLocations.push([rowLocs, colLocs]);
-  return newRoomLocations;
-}
 
 
 function firstRoom(board, rows, cols) {
@@ -32,41 +25,39 @@ function firstRoom(board, rows, cols) {
   const midCol = Math.floor(cols / 2);
   for(let r = midRow + 2; r > midRow -3; r--){
     for (let c = midCol + 2; c > midCol - 3; c--) {
-      board[r][c] = false;
+      board[r][c] = 1;
     }
   }
-  const rowLocs = {start: midRow-3, end: midRow+2};
-  const colLocs = {start: midCol-3, end: midCol+2};
-  updateLocation(rowLocs, colLocs);
   return board;
 }
 
 function findWall(board, rows, cols, tries=100) {
   while(tries >0 || tries !== true){
-    let randomRow = _.random(0, rows);
-    let randomCol = _.random(0, cols);
-    let wallRow = 0;
-    let wallCol = 0;
-    if (board[randomRow][randomCol] === false){
-      if (board[randomRow+1][randomCol] === true) {
+    var randomRow = _.random(0, rows-1);
+    var randomCol = _.random(0, cols-1);
+    var wallRow = 0;
+    var wallCol = 0;
+    // 0 = wall, 1 = floor
+    if (board[randomRow][randomCol] === 1){
+      if (board[randomRow+1][randomCol] === 0) {
         wallRow = randomRow+1;
         wallCol = randomCol;
         tries = 0;
         break;
     }
-      if (board[randomRow - 1][randomCol] === true) {
+      if (board[randomRow - 1][randomCol] === 0) {
         wallRow = randomRow - 1;
         wallCol = randomCol;
         tries = 0
         break;
       }
-      if (board[randomRow][randomCol + 1] === true) {
+      if (board[randomRow][randomCol + 1] === 0) {
         wallRow = randomRow;
         wallCol = randomCol + 1;
         tries = 0
         break;
       }
-      if (board[randomRow][randomCol - 1] === true) {
+      if (board[randomRow][randomCol - 1] === 0) {
         wallRow = randomRow;
         wallCol = randomCol - 1;
         tries = 0
@@ -80,6 +71,6 @@ function findWall(board, rows, cols, tries=100) {
 
 function markWall(board, wallCoords){
   const[row,col] = wallCoords;
-  board[row][col] = false;
+  board[row][col] = 1;
   return board;
 }
