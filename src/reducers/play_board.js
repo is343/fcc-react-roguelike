@@ -1,4 +1,4 @@
-import emptyBoard from '../utilities/empty_board';
+import createDungeonLevel from '../utilities/empty_board';
 
 const something= 'something';
 
@@ -11,7 +11,7 @@ const defaultState = {
   // creating the grid by filling the array with rows
   // then going through each row and filling with columns
   // with false (a box that is off)
-  playField: emptyBoard(rows, cols),
+  playField: createDungeonLevel(rows, cols),
   rows: rows,
   cols: cols,
   levelHistory: {}

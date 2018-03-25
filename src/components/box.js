@@ -5,7 +5,8 @@ const Box = props => {
     <div
       className={props.boxClass}
       id={props.id}
-    />
+    >
+    </div>
   );
 };
 

@@ -17,9 +17,8 @@ class PlayField extends Component {
         let boxId = `${row_index}-${col_index}`;
         // switch to test each box and put the corresponding class
         // created an immediately envoked function, and envoked with the box
-        let boxClass = ((test) => {switch(test) {
-          // spaces between the classes for multiples
-          // needs box class and whatever else class
+        let boxClass = 
+        ((test) => {switch(test) {
           case 0:  // wall
             return 'box wall';
             break;
@@ -54,6 +53,12 @@ class PlayField extends Component {
           
           case 8:  // player
             return 'box player';
+            break;
+
+          case 9:  // outer wall
+            return 'box outer';
+          // spaces between the classes for multiples
+          // needs box class and whatever else class
           
         }
         })(this.props.playField[row_index][col_index]);

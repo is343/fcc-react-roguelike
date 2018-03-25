@@ -33,6 +33,9 @@
 .player {
   background-color: rgb(128, 0, 117);
 }
+.outer {
+  background-color: rgb(26, 25, 25);
+}
 
 .box:hover {
   background-color: greenyellow;
