@@ -1,19 +1,18 @@
 import createDungeonLevel from '../utilities/empty_board';
+import createDungeonFloors from '../utilities/dungeon_floors';
 
 const something= 'something';
 
 const rows = 50;
 const cols = 75;
-
+const dungeonFloors = createDungeonFloors(rows, cols);
 
 const defaultState = {
   currentLevel: 1,
-  // creating the grid by filling the array with rows
-  // then going through each row and filling with columns
-  // with false (a box that is off)
-  playField: createDungeonLevel(rows, cols),
+  playField: dungeonFloors[0],
   rows: rows,
   cols: cols,
+  dungeonFloors: dungeonFloors,
   levelHistory: {}
 };
 
@@ -27,3 +26,6 @@ const playBoardReducer = (state=defaultState, action) => {
 }
 
 export default playBoardReducer;
+
+
+// CREATE BUTTONS TO SWITCH BETWEEN FLOORS

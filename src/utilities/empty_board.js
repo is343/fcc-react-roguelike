@@ -1,10 +1,12 @@
 import _ from 'lodash';
 
 export default function createDungeonLevel(rows, cols){
+  // carrys out all the functions to randomly generate a dungeon
+  // ints -> arr
   var board = emptyBoard(rows, cols);
   board = outerWall(board, rows, cols);
   board = firstRoom(board, rows, cols);
-  var wallCoords = findWall(board, rows, cols, true); // first room
+  var wallCoords = findWall(board, rows, cols); // for first room
   var tries = 1000;
   while(tries > 0){
     wallCoords = findWall(board, rows, cols);
@@ -43,29 +45,59 @@ export function outerWall(board, rows, cols){
 
 
 export function firstRoom(board, rows, cols) {
-  // creates a 5x5 room in the center of the m
+  // creates a 5x5 room to start 
+  // randomly selects the where to build the first room
   // arr, ints -> arr
   let boardCopy = _.cloneDeep(board);
-  const midRow = Math.floor(rows / 2);
-  const midCol = Math.floor(cols / 2);
-  for(let r = midRow + 2; r > midRow -3; r--){
-    for (let c = midCol + 2; c > midCol - 3; c--) {
-      boardCopy[r][c] = 1;
+  // randomly decide where to start the board
+  const start = _.random(4);
+  // first room is the center
+  if(start === 0){ // first room is in the center
+    const midRow = Math.floor(rows / 2);
+    const midCol = Math.floor(cols / 2);
+    for(let r = midRow + 2; r > midRow -3; r--){
+      for (let c = midCol + 2; c > midCol - 3; c--) {
+        boardCopy[r][c] = 1;
+      }
+    }
+  } else if(start === 1){ // first room is in the bottom left corner
+    for (let r = rows - 6; r < rows-1; r++){
+      for (let c = 1; c < 7; c++){
+        boardCopy[r][c] = 1;
+      }
+    }
+  } else if (start === 2) { // first room is in the bottom right corner
+    for (let r = rows - 6; r < rows - 1; r++) {
+      for (let c = cols - 6; c < cols - 1; c++) {
+        boardCopy[r][c] = 1;
+      }
+    }
+  } else if (start === 3) { // first room is in the top left corner
+    for (let r = 1; r < 7; r++) {
+      for (let c = 1; c < 7; c++) {
+        boardCopy[r][c] = 1;
+      }
+    }
+  } else if (start === 4) { // first room is in the top right corner
+    for (let r = 1; r < 7; r++) {
+      for (let c = cols - 6; c < cols - 1; c++) {
+        boardCopy[r][c] = 1;
+      }
     }
   }
   return boardCopy;
 }
 
-export function findWall(board, rows, cols, first = false, tries = 1000) {
+export function findWall(board, rows, cols) {
   // searches the board for a random floor tile and checks if
   // is next to a wall (0 == wall, 1 == floor)
   // tries == how many times it will search
   // first == if it is the first room, so it will not stop searching
   // returns the location of the door, and which direction to go
   // arr, ints, bool -> obj (ints, str)
-  while(tries >0){
-    var randomRow = _.random(0, rows-1);
-    var randomCol = _.random(0, cols-1);
+  while(true){
+    var randomRow = _.random(rows-1);
+    var randomCol = _.random(cols-1);
     var wallRow;
     var wallCol;
     var direction;
@@ -110,10 +142,6 @@ export function findWall(board, rows, cols, first = false, tries = 1000) {
       }
       catch(err){
       }
-    }
-    tries--;
-    if (first === true) {
-      tries = 1000;
     }
   }
   return {wallRow, wallCol, direction };
