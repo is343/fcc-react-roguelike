@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import Box from "./box";
+import Box from "../components/box";
 
 class PlayField extends Component {
   render() {

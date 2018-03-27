@@ -1,5 +1,6 @@
 import createDungeonLevel from '../utilities/empty_board';
 import createDungeonFloors from '../utilities/dungeon_floors';
+import { CYCLE_LEVEL } from '../actions';
 
 const something= 'something';
 
@@ -18,14 +19,11 @@ const defaultState = {
 
 const playBoardReducer = (state=defaultState, action) => {
   switch(action.type) {
-    case something:
-      return state;
-    
+    case CYCLE_LEVEL:
+      let {currentLevel, playField} = action.payload;
+      state = {...state, currentLevel: currentLevel, playField: playField};    
   }
   return state;
 }
 
 export default playBoardReducer;
-
-
-// CREATE BUTTONS TO SWITCH BETWEEN FLOORS

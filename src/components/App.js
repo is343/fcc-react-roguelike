@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import PlayField from './play_board';
+import PlayField from '../containers/play_board';
+import Buttons from '../containers/buttons';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <Buttons />
         <PlayField />
       </div>
     );
