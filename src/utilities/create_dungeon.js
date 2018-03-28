@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { BOX_KEY } from '../actions';
 
 export default function createDungeonLevel(rows, cols){
   // carrys out all the functions to randomly generate a dungeon
@@ -22,22 +23,22 @@ export function emptyBoard(rows, cols) {
   // ints -> array
   let blankBoard = Array(rows)
     .fill()
-    .map(() => Array(cols).fill(0));
+    .map(() => Array(cols).fill(BOX_KEY.WALL));
   return blankBoard;
 };
 
 export function outerWall(board, rows, cols){
-  // creates the outer walls (9 == outer wall class)
+  // creates the outer walls
   // sets the perimeter of the grid to 9
   // arr, ints -> arr
   let newBoard = _.cloneDeep(board);
   for (let c = 0; c < cols; c++) {
-    newBoard[0][c] = 9;
-    newBoard[rows - 1][c] = 9;
+    newBoard[0][c] = BOX_KEY.OUTER;
+    newBoard[rows - 1][c] = BOX_KEY.OUTER;
   }
   for (let r = 0; r < rows; r++) {
-    newBoard[r][0] = 9;
-    newBoard[r][cols-1] = 9;
+    newBoard[r][0] = BOX_KEY.OUTER;
+    newBoard[r][cols - 1] = BOX_KEY.OUTER;
   }
   return newBoard;
 }
@@ -57,31 +58,31 @@ export function firstRoom(board, rows, cols) {
     const midCol = Math.floor(cols / 2);
     for(let r = midRow + 2; r > midRow -3; r--){
       for (let c = midCol + 2; c > midCol - 3; c--) {
-        boardCopy[r][c] = 1;
+        boardCopy[r][c] = BOX_KEY.GROUND;
       }
     }
   } else if(start === 1){ // first room is in the bottom left corner
     for (let r = rows - 6; r < rows-1; r++){
       for (let c = 1; c < 7; c++){
-        boardCopy[r][c] = 1;
+        boardCopy[r][c] = BOX_KEY.GROUND;
       }
     }
   } else if (start === 2) { // first room is in the bottom right corner
     for (let r = rows - 6; r < rows - 1; r++) {
       for (let c = cols - 6; c < cols - 1; c++) {
-        boardCopy[r][c] = 1;
+        boardCopy[r][c] = BOX_KEY.GROUND;
       }
     }
   } else if (start === 3) { // first room is in the top left corner
     for (let r = 1; r < 7; r++) {
       for (let c = 1; c < 7; c++) {
-        boardCopy[r][c] = 1;
+        boardCopy[r][c] = BOX_KEY.GROUND;
       }
     }
   } else if (start === 4) { // first room is in the top right corner
     for (let r = 1; r < 7; r++) {
       for (let c = cols - 6; c < cols - 1; c++) {
-        boardCopy[r][c] = 1;
+        boardCopy[r][c] = BOX_KEY.GROUND;
       }
     }
   }
@@ -101,10 +102,10 @@ export function findWall(board, rows, cols) {
     var wallRow;
     var wallCol;
     var direction;
-    // 0 = wall, 1 = floor
-    if (board[randomRow][randomCol] === 1){
+    // 0 == wall, 1 == floor
+    if (board[randomRow][randomCol] === BOX_KEY.GROUND){
       try {
-          if (board[randomRow + 1][randomCol] === 0) {
+          if (board[randomRow + 1][randomCol] === BOX_KEY.WALL) {
           wallRow = randomRow + 1;
           wallCol = randomCol;
           direction = 'down';
@@ -114,16 +115,17 @@ export function findWall(board, rows, cols) {
     catch(err){
     }
       try {
-          if (board[randomRow - 1][randomCol] === 0) {
+          if (board[randomRow - 1][randomCol] === BOX_KEY.WALL) {
           wallRow = randomRow - 1;
           wallCol = randomCol;
-          direction = 'up';          break;
+          direction = 'up';
+          break;
         }
       }
       catch(err){
       }
       try {
-          if (board[randomRow][randomCol + 1] === 0) {
+          if (board[randomRow][randomCol + 1] === BOX_KEY.WALL) {
           wallRow = randomRow;
           wallCol = randomCol + 1;
           direction = 'right';
@@ -133,7 +135,7 @@ export function findWall(board, rows, cols) {
       catch(err){
       }
       try {
-          if (board[randomRow][randomCol - 1] === 0) {
+          if (board[randomRow][randomCol - 1] === BOX_KEY.WALL) {
           wallRow = randomRow;
           wallCol = randomCol - 1;
           direction = 'left';
@@ -152,7 +154,7 @@ export function createDoor(board, wallCoords){
   // arr, ints -> arr
   let boardCopy = _.cloneDeep(board);
   const { wallRow, wallCol} = wallCoords;
-  boardCopy[wallRow][wallCol] = 1;
+  boardCopy[wallRow][wallCol] = BOX_KEY.GROUND;
   return boardCopy;
 }
 
@@ -180,7 +182,7 @@ export function checkSpace(board, wallCoords){
       for(let r = 0; r < rows+1; r++){
         for (let c = 0; c < cols+1; c++){
           try {
-            if(boardCopy[1 + wallRow + r][wallCol + c] !== 0) {
+            if(boardCopy[1 + wallRow + r][wallCol + c] !== BOX_KEY.WALL) {
               cancel = true;
               break;
             }
@@ -189,7 +191,7 @@ export function checkSpace(board, wallCoords){
            cancel = true;
            break;
          }
-          boardCopy[1 + wallRow + r][wallCol + c] = 1;
+          boardCopy[1 + wallRow + r][wallCol + c] = BOX_KEY.GROUND;
         }
       }
       break;
@@ -197,7 +199,7 @@ export function checkSpace(board, wallCoords){
       for (let r = 0; r < rows + 1; r++) {
         for (let c = 0; c < cols + 1; c++) {
           try {
-            if (boardCopy[wallRow - r - 1][wallCol + c] !== 0) {
+            if (boardCopy[wallRow - r - 1][wallCol + c] !== BOX_KEY.WALL) {
               cancel = true;
               break;
             }
@@ -206,7 +208,7 @@ export function checkSpace(board, wallCoords){
             cancel = true
             break
           }
-          boardCopy[wallRow - r - 1][wallCol + c] = 1;
+          boardCopy[wallRow - r - 1][wallCol + c] = BOX_KEY.GROUND;
         }
       }
       break;
@@ -214,7 +216,7 @@ export function checkSpace(board, wallCoords){
       for (let r = 0; r < rows + 1; r++) {
         for (let c = 0; c < cols + 1; c++) {
           try {
-            if (boardCopy[wallRow + r][1 + wallCol + c] !== 0) {
+            if (boardCopy[wallRow + r][1 + wallCol + c] !== BOX_KEY.WALL) {
               cancel = true;
               break;
             }
@@ -223,7 +225,7 @@ export function checkSpace(board, wallCoords){
             cancel = true
             break
           }
-          boardCopy[wallRow + r][1 + wallCol + c] = 1;
+          boardCopy[wallRow + r][1 + wallCol + c] = BOX_KEY.GROUND;
         }
       }
       break;
@@ -231,7 +233,7 @@ export function checkSpace(board, wallCoords){
       for (let r = 0; r < rows + 1; r++) {
         for (let c = 0; c < cols + 1; c++) {
           try {
-            if (boardCopy[wallRow + r][wallCol - c - 1] !== 0) {
+            if (boardCopy[wallRow + r][wallCol - c - 1] !== BOX_KEY.WALL) {
               cancel = true;
               break;
             }
@@ -240,11 +242,11 @@ export function checkSpace(board, wallCoords){
             cancel = true
             break
           }
-          boardCopy[wallRow + r][wallCol - c - 1] = 1;
+          boardCopy[wallRow + r][wallCol - c - 1] = BOX_KEY.GROUND;
         }
       }
   }
-  if (cancel === true){
+  if (cancel){
     // return old board if invalid
     return board;
   }

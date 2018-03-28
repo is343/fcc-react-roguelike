@@ -37,12 +37,5 @@ function mapDispatchToProps(dispatch){
   }, dispatch);
 }
 
-// function mapStoreToProps(store) {
-//   return {
-//     rows: store.playBoard.rows,
-//     cols: store.playBoard.cols,
-//     playField: store.playBoard.playField,
-//   };
-// }
 
 export default connect(mapStoreToProps, mapDispatchToProps)(Buttons);

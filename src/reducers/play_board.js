@@ -1,4 +1,4 @@
-import createDungeonLevel from '../utilities/empty_board';
+import createDungeonLevel from '../utilities/create_dungeon';
 import createDungeonFloors from '../utilities/dungeon_floors';
 import { CYCLE_LEVEL } from '../actions';
 
@@ -21,7 +21,7 @@ const playBoardReducer = (state=defaultState, action) => {
   switch(action.type) {
     case CYCLE_LEVEL:
       let {currentLevel, playField} = action.payload;
-      state = {...state, currentLevel: currentLevel, playField: playField};    
+      state = {...state, currentLevel, playField};    
   }
   return state;
 }

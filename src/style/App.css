@@ -13,7 +13,7 @@
   background-color: lightslategray;
 }
 .enemy {
-  background-color: red;
+  background-color: rgb(97, 0, 0);
 }
 .weapon {
   background-color: orange;
@@ -28,10 +28,10 @@
   background-color: rgb(0, 8, 121);
 }
 .boss {
-  background-color: rgb(97, 0, 0);
+  background-color: red;
 }
 .player {
-  background-color: rgb(128, 0, 117);
+  background-color: rgb(233, 1, 214);
 }
 .outer {
   background-color: rgb(26, 25, 25);

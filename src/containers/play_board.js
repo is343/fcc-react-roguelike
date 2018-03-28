@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Box from "../components/box";
+import { BOX_KEY } from '../actions';
 
 class PlayField extends Component {
   render() {
@@ -19,43 +20,43 @@ class PlayField extends Component {
         // created an immediately envoked function, and envoked with the box
         let boxClass = 
         ((test) => {switch(test) {
-          case 0:  // wall
+          case BOX_KEY.WALL:  // wall
             return 'box wall';
             break;
           
-          case 1:  // ground
+          case BOX_KEY.GROUND:  // ground
             return 'box ground';
             break;
           
-          case 2:  // enemy
+          case BOX_KEY.ENEMY:  // enemy
             return 'box enemy';
             break;
           
-          case 3:  // weapon
+          case BOX_KEY.WEAPON:  // weapon
             return 'box weapon';
             break;
           
-          case 4:  // health
+          case BOX_KEY.HEALTH:  // health
             return 'box health';
             break;
           
-          case 5:  // stairs up
+          case BOX_KEY.STAIR_UP:  // stairs up
             return 'box stair-up';
             break;
           
-          case 6:  // stairs down
+          case BOX_KEY.STAIR_DOWN:  // stairs down
             return 'box stair-down';
             break;
           
-          case 7:  // boss
+          case BOX_KEY.BOSS:  // boss
             return 'box boss';
             break;
           
-          case 8:  // player
+          case BOX_KEY.PLAYER:  // player
             return 'box player';
             break;
 
-          case 9:  // outer wall
+          case BOX_KEY.OUTER:  // outer wall
             return 'box outer';
           // spaces between the classes for multiples
           // needs box class and whatever else class
