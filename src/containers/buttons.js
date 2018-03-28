@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { cycleLevel } from '../actions';
+import { cycleLevel, toggleDarkness } from '../actions';
 
 class Buttons extends Component {
   render(){
@@ -10,7 +10,8 @@ class Buttons extends Component {
         <div>
           Current Level: {this.props.currentLevel}
           <br/>
-          Player Coordinates: {this.props.playerLocations[this.props.currentLevel-1]}
+          Player Coordinates: {this.props.playerLocations[this.props.currentLevel - 1][0]},
+          {this.props.playerLocations[this.props.currentLevel - 1][1]}
         </div>
         <button 
           onClick={() => this.props.onNextBoard(this.props.currentLevel,
@@ -18,6 +19,11 @@ class Buttons extends Component {
           )}
         >
           Next Level
+        </button>
+        <button
+          onClick={() => this.props.toggleDarkness(this.props.darkness)}
+        >
+          Toggle Darkness
         </button>
       </div>
       
@@ -29,13 +35,15 @@ function mapStoreToProps(store){
   return{
     currentLevel: store.playBoard.currentLevel,
     dungeonFloors: store.playBoard.dungeonFloors,
-    playerLocations: store.playBoard.playerLocations
+    playerLocations: store.playBoard.playerLocations,
+    darkness: store.playBoard.darkness
   };
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    onNextBoard: cycleLevel
+    onNextBoard: cycleLevel,
+    toggleDarkness: toggleDarkness
   }, dispatch);
 }
 

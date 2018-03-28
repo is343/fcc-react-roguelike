@@ -1,8 +1,6 @@
 import createDungeonLevel from '../utilities/create_dungeon';
 import createDungeonFloors from '../utilities/dungeon_floors';
-import { CYCLE_LEVEL } from '../actions';
-
-const something= 'something';
+import { DISPATCH_KEYS } from '../actions';
 
 const rows = 50;
 const cols = 75;
@@ -15,14 +13,18 @@ const defaultState = {
   rows: rows,
   cols: cols,
   dungeonFloors: dungeonFloors,
-  playerLocations: playerLocations
+  playerLocations: playerLocations,
+  darkness: true
 };
 
 const playBoardReducer = (state=defaultState, action) => {
   switch(action.type) {
-    case CYCLE_LEVEL:
+    case DISPATCH_KEYS.CYCLE_LEVEL:
       let {currentLevel, playField} = action.payload;
-      state = {...state, currentLevel, playField};    
+      state = {...state, currentLevel, playField};
+    case DISPATCH_KEYS.TOGGLE_DARKNESS:
+      let darkness = action.payload;
+      state = {...state, darkness};
   }
   return state;
 }

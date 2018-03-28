@@ -9,7 +9,7 @@ export default function populateDungeon(board, rows, cols, currentLevel){
   let boardCopy = _.cloneDeep(board);
   boardCopy = populateOne(boardCopy, rows, cols, BOX_KEY.ENEMY, 15);
   boardCopy = populateOne(boardCopy, rows, cols, BOX_KEY.WEAPON, 4);
-  boardCopy = populateOne(boardCopy, rows, cols, BOX_KEY.HEALTH, 8);
+  boardCopy = populateOne(boardCopy, rows, cols, BOX_KEY.HEALTH, 10);
   // DECIDED TO GO WITH A HOLE DOWN TO THE NEXT LEVEL
   // AND TO NOT ALLOW THE PLAYER TO GO BACK UP TO THE PREVIOUS LEVEL
   ////////////////////////////////////////

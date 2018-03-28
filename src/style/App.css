@@ -24,7 +24,7 @@
 .stair-up {
   background-color: rgb(0, 196, 245);
 }
-.stair-down {
+.hole {
   background-color: rgb(0, 8, 121);
 }
 .boss {
@@ -35,6 +35,9 @@
 }
 .outer {
   background-color: rgb(43, 43, 43);
+}
+.dark {
+  background-color:black;
 }
 
 .box:hover {
