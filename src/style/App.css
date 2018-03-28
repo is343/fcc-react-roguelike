@@ -16,10 +16,10 @@
   background-color: rgb(97, 0, 0);
 }
 .weapon {
-  background-color: orange;
+  background-color: rgb(255, 238, 0);
 }
 .health {
-  background-color: green;
+  background-color: rgb(4, 255, 4);
 }
 .stair-up {
   background-color: rgb(0, 196, 245);
@@ -34,7 +34,7 @@
   background-color: rgb(233, 1, 214);
 }
 .outer {
-  background-color: rgb(26, 25, 25);
+  background-color: rgb(43, 43, 43);
 }
 
 .box:hover {

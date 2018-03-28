@@ -44,7 +44,7 @@ class PlayField extends Component {
             return 'box stair-up';
             break;
           
-          case BOX_KEY.STAIR_DOWN:  // stairs down
+          case BOX_KEY.HOLE:  // Hole down
             return 'box stair-down';
             break;
           

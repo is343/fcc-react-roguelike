@@ -9,12 +9,13 @@ class Buttons extends Component {
       <div>
         <div>
           Current Level: {this.props.currentLevel}
+          <br/>
+          Player Coordinates: {this.props.playerLocations[this.props.currentLevel-1]}
         </div>
         <button 
-          onClick={() => this.props.onNextBoard({
-            currentLevel: this.props.currentLevel,
-            dungeonFloors: this.props.dungeonFloors
-          })}
+          onClick={() => this.props.onNextBoard(this.props.currentLevel,
+            this.props.dungeonFloors
+          )}
         >
           Next Level
         </button>
@@ -27,7 +28,8 @@ class Buttons extends Component {
 function mapStoreToProps(store){
   return{
     currentLevel: store.playBoard.currentLevel,
-    dungeonFloors: store.playBoard.dungeonFloors
+    dungeonFloors: store.playBoard.dungeonFloors,
+    playerLocations: store.playBoard.playerLocations
   };
 }
 

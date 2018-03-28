@@ -3,10 +3,18 @@ import populateDungeon from '../utilities/populate_dungeon';
 
 export default function createDungeonLevels(rows, cols){
   // creates multiple levels of the dungeon
-  let dungeonLevels = [];
+  // calls and creates objects and player locations for each floor
+  // ints -> object (of arrays)
+  let dungeonFloors = [];
+  let playerLocations = [];
   for(let i = 0; i < 5; i++){
     let tempLevel = createDungeonLevel(rows, cols);
-    dungeonLevels.push(populateDungeon(tempLevel, rows, cols, i+1));
+    let tempLevelAndPlayerLocs = populateDungeon(tempLevel, rows, cols, i + 1);
+    dungeonFloors.push(tempLevelAndPlayerLocs.board);
+    playerLocations.push(tempLevelAndPlayerLocs.playerLocations);
   }
-  return dungeonLevels;
+  return {
+    dungeonFloors: dungeonFloors,
+    playerLocations: playerLocations
+  };
 }

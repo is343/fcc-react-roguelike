@@ -6,7 +6,8 @@ const something= 'something';
 
 const rows = 50;
 const cols = 75;
-const dungeonFloors = createDungeonFloors(rows, cols);
+const dungeonFloorsAndPlayerLocs = createDungeonFloors(rows, cols);
+const { dungeonFloors, playerLocations } = dungeonFloorsAndPlayerLocs;
 
 const defaultState = {
   currentLevel: 1,
@@ -14,7 +15,7 @@ const defaultState = {
   rows: rows,
   cols: cols,
   dungeonFloors: dungeonFloors,
-  levelHistory: {}
+  playerLocations: playerLocations
 };
 
 const playBoardReducer = (state=defaultState, action) => {
