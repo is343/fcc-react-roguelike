@@ -8,12 +8,12 @@ import { handleMovement } from '../actions';
 
 class App extends Component {
   onKeyPress = (e) => {
+    e.preventDefault();
     this.props.onMovement(
       this.props.dungeonFloors, 
       this.props.currentLevel, 
       e.keyCode, 
       this.props.playerLocations);
-    console.log('keypress:', e.keyCode);
   };
   componentDidMount(){
     window.addEventListener('keydown', this.onKeyPress);

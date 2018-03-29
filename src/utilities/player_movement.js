@@ -14,12 +14,18 @@ export default function playerMovement(boards, currentLevel, keyCode, playerLoca
   // arrs, int -> object (of arrs)
   let level = currentLevel - 1;
   let newPlayerLoc = getNewLocation(keyCode, playerLocations, level);
-  let updatedBoard = colorBoxes(boards, newPlayerLoc, playerLocations, level);
-  let updatedLocations = updateNewLocation(newPlayerLoc, playerLocations, level);
+  if (validMoveCheck(boards, newPlayerLoc, level)){
+    let updatedBoard = colorBoxes(boards, newPlayerLoc, playerLocations, level);
+    let updatedLocations = updateNewLocation(newPlayerLoc, playerLocations, level);
+    return {
+      updatedBoard: updatedBoard,
+      updatedLocations: updatedLocations
+    };
+  }
   return {
-    updatedBoard: updatedBoard,
-    updatedLocations: updatedLocations
-  };
+    updatedBoard: boards,
+    updatedLocations: playerLocations    
+  }
 }
 
 
@@ -50,4 +56,15 @@ function colorBoxes(boards, newPlayerLoc, playerLocations, level){
   boardCopy[level][newPlayerLoc[0]][newPlayerLoc[1]] = BOX_KEY.PLAYER;
   
   return boardCopy;
+}
+
+function validMoveCheck(boards, newPlayerLoc, level){
+  // checks if the new location is a wall
+  // returns true if not a wall
+  // arrs, int -> bool
+  if (boards[level][newPlayerLoc[0]][newPlayerLoc[1]] === BOX_KEY.WALL || 
+    boards[level][newPlayerLoc[0]][newPlayerLoc[1]] === BOX_KEY.OUTER ){
+      return false
+    }
+  return true
 }
