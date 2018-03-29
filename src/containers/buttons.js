@@ -6,7 +6,7 @@ import { cycleLevel, toggleDarkness } from '../actions';
 class Buttons extends Component {
   render(){
     return (
-      <div>
+      <div className='center'>
         <div>
           Current Level: {this.props.currentLevel}
           <br/>

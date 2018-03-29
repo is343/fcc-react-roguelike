@@ -22,9 +22,16 @@ const playBoardReducer = (state=defaultState, action) => {
     case DISPATCH_KEYS.CYCLE_LEVEL:
       let {currentLevel, playField} = action.payload;
       state = {...state, currentLevel, playField};
+      break;
     case DISPATCH_KEYS.TOGGLE_DARKNESS:
       let darkness = action.payload;
       state = {...state, darkness};
+      console.log(state);
+      break;
+    case DISPATCH_KEYS.MOVE_PLAYER:
+      let { newPlayField, dungeonFloors, playerLocations} = action.payload;
+      state = { ...state, playField: newPlayField, dungeonFloors, playerLocations };
+      console.log(state);
   }
   return state;
 }
