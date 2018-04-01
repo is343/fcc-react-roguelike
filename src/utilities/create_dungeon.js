@@ -52,7 +52,6 @@ export function firstRoom(board, rows, cols) {
   let boardCopy = _.cloneDeep(board);
   // randomly decide where to start the board
   const start = _.random(4);
-  // first room is the center
   if(start === 0){ // first room is in the center
     const midRow = Math.floor(rows / 2);
     const midCol = Math.floor(cols / 2);
@@ -91,9 +90,6 @@ export function firstRoom(board, rows, cols) {
 
 export function findWall(board, rows, cols) {
   // searches the board for a random floor tile and checks if
-  // is next to a wall (0 == wall, 1 == floor)
-  // tries == how many times it will search
-  // first == if it is the first room, so it will not stop searching
   // returns the location of the door, and which direction to go
   // arr, ints, bool -> obj (ints, str)
   while(true){
@@ -102,7 +98,6 @@ export function findWall(board, rows, cols) {
     var wallRow;
     var wallCol;
     var direction;
-    // 0 == wall, 1 == floor
     if (board[randomRow][randomCol] === BOX_KEY.GROUND){
       try {
           if (board[randomRow + 1][randomCol] === BOX_KEY.WALL) {

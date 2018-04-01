@@ -47,7 +47,6 @@ class PlayField extends Component {
 function setBoxClass(currentBox){
   // applies appropriate classes to the box
   // array -> str
-  let boxClass;
     switch (currentBox) {
       case BOX_KEY.WALL:  // wall
         return 'box wall';

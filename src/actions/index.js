@@ -21,6 +21,7 @@ export const DISPATCH_KEYS = {
 };
 
 export function cycleLevel(currentLevel, dungeonFloors){
+  // MAINLY FOR DEBUGGING
   // cycles through currently displayed level
   // array and int -> obj (dispatch) of arrs
   if (currentLevel < dungeonFloors.length){
@@ -31,7 +32,7 @@ export function cycleLevel(currentLevel, dungeonFloors){
   return{
     type: DISPATCH_KEYS.CYCLE_LEVEL,
     payload: {
-      currentLevel: currentLevel,
+      updatedCurrentLevel: currentLevel,
       playField: dungeonFloors[currentLevel-1]
     }
   }
@@ -46,18 +47,22 @@ export function toggleDarkness(darkness){
   }
 }
 
-export function handleMovement(boards, currentLevel, keyCode, playerLocations){
+export function handleMovement(boards, currentLevel, keyCode, playerLocations, stats){
   // moves the player in the direction pressed
-  // updates levels and player locations
+  // updates levels, player locations, and other stats
   // arrs, ints -> obj (dispatch) of arrs
-  let getBoard = playerMovement(boards, currentLevel, keyCode, playerLocations);
-  let {updatedBoard, updatedLocations} = getBoard;
+  let getBoard = playerMovement(boards, currentLevel, keyCode, playerLocations, stats);
+  let { updatedLevel, updatedBoard, updatedLocations, updatedStats, win, lose} = getBoard;
   return{
     type: DISPATCH_KEYS.MOVE_PLAYER,
     payload: {
-      newPlayField: updatedBoard[currentLevel - 1],
+      currentLevel: updatedLevel,
+      newPlayField: updatedBoard[updatedLevel - 1],
       dungeonFloors: updatedBoard,
-      playerLocations: updatedLocations
+      playerLocations: updatedLocations,
+      stats: updatedStats,
+      win: win,
+      lose: lose
     }
   }
 }
